@@ -17,7 +17,7 @@ class m180821_122943_create_model_table extends Migration
         $this->createTable('model', [
             'id' => $this->primaryKey(),
             'brand_id' => $this->integer()->notNull(),
-            'name' => $this->integer()->notNull(),
+            'name' => $this->string()->notNull(),
             'description' => $this->text(),
             'photo' => $this->string()
         ]);
