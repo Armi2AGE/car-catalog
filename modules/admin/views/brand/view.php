@@ -8,6 +8,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Brand */
 
 $this->title = $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Панель управления', 'url' => ['/admin']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="brand-view">
@@ -29,11 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <h2>Перечень моделей</h2>
             <div class="panel-body">
                 <?php foreach ($model->models as $carModel) : ?>
-                    <a href="<?= Url::toRoute(['/admin/model/view', 'id' => $carModel->id]) ?>" type="button"
-                            class="btn
-                    btn-default"><?=
-                        $carModel->name
-                        ?></a>
+                    <a href="<?= Url::toRoute(['/admin/model/view', 'id' => $carModel->id]) ?>"
+                            class="btn btn-default"><?=$carModel->name?></a>
                 <?php endforeach; ?>
                 <a href="<?= Url::toRoute(['/admin/model/create', 'brand_id' => $model->id])?>"
                         class="btn btn-success">+ Модель</a>

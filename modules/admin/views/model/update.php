@@ -7,6 +7,7 @@ use yii\helpers\Url;
 /* @var $model app\models\Model */
 
 $this->title = 'Update Model: ' . $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Панель управления', 'url' => ['/admin']];
 $this->params['breadcrumbs'][] = [
     'label' => $brand->name,
     'url' => Url::toRoute(['brand/view', 'id' =>$brand->id])

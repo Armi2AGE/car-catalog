@@ -7,6 +7,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Brand */
 
 $this->title = 'Добавить Бренд';
+$this->params['breadcrumbs'][] = ['label' => 'Панель управления','url' => ['/admin']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="brand-create">
