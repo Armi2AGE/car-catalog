@@ -45,14 +45,18 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '' => 'site/index',
+                // 'vtoraya-shkola/<view:[a-zA-Z0-9-]+>' => '/secondSchool/second-school/page/',
+                '<module>/<controller>/<action>/<id>' => '<module>/<controller>/<action>',
+                '<module>/<controller>/<action>' => '<module>/<controller>/<action>',
+                '<controller>/<action>/<id>' => '<controller>/<action><id>',
+                '<controller>/<action>' => '<controller>/<action>',
             ],
         ],
-        */
     ],
     'modules' => [
         'admin' => [
