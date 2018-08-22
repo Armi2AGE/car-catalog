@@ -3,6 +3,8 @@
 namespace app\modules\admin\controllers;
 
 use app\models\Brand;
+use app\modules\admin\forms\CarModelForm;
+use yii\web\UploadedFile;
 use Yii;
 use app\models\Model;
 use app\models\ModelSearch;
@@ -66,12 +68,22 @@ class ModelController extends Controller
      */
     public function actionCreate($brand_id)
     {
-        $model = new Model();
+        //For hidden input parent Brand Id
         $brand = Brand::findOne($brand_id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $model = new CarModelForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->imageFile = UploadedFile::getInstance($model, 'imageFile')) {
+                $model->upload();
+            }
+            $model->save();
+            return $this->redirect(['/admin/brand/view', 'id' => $brand_id]);
         }
+
+        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //     return $this->redirect(['view', 'id' => $model->id]);
+        // }
 
         return $this->render('create', [
             'model' => $model,

@@ -6,13 +6,13 @@ use yii\helpers\ArrayHelper;
 use app\models\Brand;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Model */
+/* @var $model app\modules\admin\forms\CarModelForm */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="model-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'brand_id')->hiddenInput(['value' => $brand->id])->label(false)?>
 
@@ -20,7 +20,7 @@ use app\models\Brand;
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'photo')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'imageFile')->fileInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
