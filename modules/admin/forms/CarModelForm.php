@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\forms;
 
+use app\components\ImageFileBehavior;
 use yii\base\Model;
 use yii\web\UploadedFile;
 use app\models\Model as CarModel;
@@ -15,6 +16,15 @@ class CarModelForm extends Model
     public $name;
     public $description;
     public $imageFile;
+
+    public function behaviors()
+    {
+        return [
+            'imageFile' => [
+                'class' => ImageFileBehavior::className(),
+            ]
+        ];
+    }
 
     public function rules()
     {
@@ -40,16 +50,6 @@ class CarModelForm extends Model
         ];
     }
 
-    public function upload()
-    {
-        if ($this->validate()) {
-            $this->imageFile->saveAs('uploads/' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     // Save data from form to car model
     public function save()
     {
@@ -57,9 +57,8 @@ class CarModelForm extends Model
         $carModel->brand_id = $this->brand_id;
         $carModel->name = $this->name;
         $carModel->description = $this->description;
-        $carModel->photo = "/uploads/{$this->imageFile->name}";
+        // $carModel->photo = "/uploads/{$this->imageFile->name}";
+        $carModel->photo = "{$this->path}";
         $carModel->save();
-        // var_dump($this->imageFile->name);
-        // die();
     }
 }

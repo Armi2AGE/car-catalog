@@ -122,8 +122,11 @@ class ModelController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        $brand_id = $model->brand->id;
+
         $model->delete();
+
+        // Just for correct return
+        $brand_id = $model->brand->id;
 
         return $this->redirect(['/admin/brand/view', 'id' => $brand_id]);
     }

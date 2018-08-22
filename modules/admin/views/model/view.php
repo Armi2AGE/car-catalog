@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <h1><?= Html::encode($this->title) ?></h1>
         <p><?= $model->description ?></p>
         <?php if ($model->photo) : ?>
-            <img src="<?= $model->photo?>" class="img-rounded">
+            <img src="/<?= $model->photo?>" class="img-rounded">
         <?php endif; ?>
     </div>
 
