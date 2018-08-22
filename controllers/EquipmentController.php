@@ -3,20 +3,20 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Model;
+use app\models\Equipment;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
 
 /**
- * ModelController implements the CRUD actions for Model model.
+ * EquipmentController implements the CRUD actions for Equipment model.
  */
-class ModelController extends Controller
+class EquipmentController extends Controller
 {
 
     /**
-     * Return all Model models.
+     * Return all Equipment models.
      * @return mixed
      */
     public function actionIndex()
@@ -26,12 +26,12 @@ class ModelController extends Controller
 
             $request = Yii::$app->request;
 
-            $id = $request->post('brandId');
+            $id = $request->post('modelId');
 
-            $models = Model::find()->where(['brand_id' => $id])->all();
+            $equipments = Equipment::find()->where(['model_id' => $id])->all();
 
             $response = array(
-                'models' => $models,
+                'models' => $equipments,
                 'success' => true,
             );
 
@@ -40,7 +40,7 @@ class ModelController extends Controller
     }
 
     /**
-     * Displays a single Model model.
+     * Displays a single Equipment model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -55,15 +55,15 @@ class ModelController extends Controller
 
 
     /**
-     * Finds the Model model based on its primary key value.
+     * Finds the Equipment model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Model the loaded model
+     * @return Equipment the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Model::findOne($id)) !== null) {
+        if (($model = Equipment::findOne($id)) !== null) {
             return $model;
         }
 

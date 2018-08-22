@@ -13,7 +13,7 @@ $this->title = 'Автомобили в лизинг';
 
         <div id="brands">
             <?php foreach ($brands as $brand): ?>
-                <button type="button" class="btn btn-default" data-car-id="<?= $brand->id ?>">
+                <button type="button" class="btn btn-default" data-type="brand" data-car-id="<?= $brand->id ?>">
                     <?= $brand->name ?></button>
             <?php endforeach; ?>
 
@@ -24,14 +24,14 @@ $this->title = 'Автомобили в лизинг';
         <div id="models"></div>
     </div>
 
-    <div class="body-content">
-    </div>
+    <div id="equipments"></div>
 </div>
 
 <?php
 
 $script = <<< JS
-    $('.btn').click(function() {
+    // Ajax request for models
+    $('[data-type="brand"]').click(function() {
         var brandId = $(this).attr('data-car-id');
         $('#models').empty();
         
@@ -45,8 +45,31 @@ $script = <<< JS
               data.models.forEach((item) => {
                 console.log(item.name);
                 $('#models-header').show();
-                $('#models').append('<button type="button" class="btn btn-default">' + item.name +'</button>');
-                
+                $('#models').append('<button data-type="model" data-model-id="'+ item.id +'" type="button" ' +
+                 'class="btn btn-default">' + item.name + '</button>');
+              });
+            }
+        });
+    });
+
+    // Ajax request for equipments
+    // $('[data-type="model"]').click(function() {
+    $('#models').on('click', 'button[data-type="model"]', function() {
+        var modelId = $(this).attr('data-model-id');
+        $('#equipments').empty();
+        
+        $.ajax({
+            url: '/equipment/index',
+            type: 'POST',
+            data: {
+              modelId: modelId,
+            },
+            success: function (data) {
+              data.models.forEach((item) => {
+                console.log(item.name);
+              //   $('#models-header').show();
+              //   $('#models').append('<button data-type="model" type="button" class="btn btn-default">' + item.name 
+              //   +'</button>');
               });
             }
         });
