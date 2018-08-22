@@ -64,5 +64,7 @@ class CarModelForm extends Model
         $carModel->description = $this->description;
         $carModel->photo = "{$this->path}";
         $carModel->save();
+
+        return true;
     }
 }

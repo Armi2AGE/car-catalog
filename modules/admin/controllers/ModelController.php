@@ -7,7 +7,6 @@ use app\modules\admin\forms\CarModelForm;
 use yii\web\UploadedFile;
 use Yii;
 use app\models\Model;
-use app\models\ModelSearch;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -31,21 +30,6 @@ class ModelController extends Controller
                 ],
             ],
         ];
-    }
-
-    /**
-     * Lists all Model models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $searchModel = new ModelSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
     }
 
     /**
@@ -100,16 +84,6 @@ class ModelController extends Controller
      */
     public function actionUpdate($id)
     {
-        // $model = $this->findModel($id);
-        //
-        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
-        //     return $this->redirect(['view', 'id' => $model->id]);
-        // }
-        //
-        // return $this->render('update', [
-        //     'model' => $model,
-        //     'brand' => $model->brand
-        // ]);
         $carModelForm = new CarModelForm();
         $brand = $this->findModel($id)->brand;
         $carModelForm->id = $id;
@@ -119,11 +93,10 @@ class ModelController extends Controller
                 $carModelForm->upload();
             }
             $carModelForm->save();
-            return $this->redirect(['/admin/brand/view', 'id' => $brand->id]);
+            return $this->redirect(['/admin/model/view', 'id' => $id]);
         }
 
-
-        // Да, Я знаю коряво, но спешим...
+        // Данные для формы
         $model = $this->findModel($id);
 
         $carModelForm->name = $model->name;
@@ -169,4 +142,5 @@ class ModelController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
 }

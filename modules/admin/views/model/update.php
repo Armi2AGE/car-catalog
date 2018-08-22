@@ -6,7 +6,7 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model app\models\Model */
 
-$this->title = 'Update Model: ' . $carModelForm->name;
+$this->title = 'Редаткирование модели: ' . $carModelForm->name;
 $this->params['breadcrumbs'][] = ['label' => 'Панель управления', 'url' => ['/admin']];
 $this->params['breadcrumbs'][] = [
     'label' => $brand->name,

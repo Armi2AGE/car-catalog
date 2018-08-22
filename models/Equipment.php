@@ -8,11 +8,11 @@ use Yii;
  * This is the model class for table "equipment".
  *
  * @property int $id
+ * @property int $model_id
  * @property string $name
  * @property string $description
  *
- * @property ModelEquipment[] $modelEquipments
- * @property Model[] $models
+ * @property Model $model
  */
 class Equipment extends \yii\db\ActiveRecord
 {
@@ -30,8 +30,11 @@ class Equipment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['model_id'], 'required'],
+            [['model_id'], 'integer'],
             [['description'], 'string'],
             [['name'], 'string', 'max' => 255],
+            [['model_id'], 'exist', 'skipOnError' => true, 'targetClass' => Model::className(), 'targetAttribute' => ['model_id' => 'id']],
         ];
     }
 
@@ -41,25 +44,18 @@ class Equipment extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'description' => 'Description',
+            'id' => 'Идентификатор',
+            'model_id' => 'Идентификатор модели',
+            'name' => 'Название',
+            'description' => 'Описание',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getModelEquipments()
+    public function getModel()
     {
-        return $this->hasMany(ModelEquipment::className(), ['equipment_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getModels()
-    {
-        return $this->hasMany(Model::className(), ['id' => 'model_id'])->viaTable('model_equipment', ['equipment_id' => 'id']);
+        return $this->hasOne(Model::className(), ['id' => 'model_id']);
     }
 }
