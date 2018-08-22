@@ -6,7 +6,7 @@ use yii\helpers\ArrayHelper;
 use app\models\Brand;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\admin\forms\CarModelForm */
+/* @var $carModelForm app\modules\admin\forms\CarModelForm */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -14,13 +14,13 @@ use app\models\Brand;
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
-    <?= $form->field($model, 'brand_id')->hiddenInput(['value' => $brand->id])->label(false)?>
+    <?= $form->field($carModelForm, 'brand_id')->hiddenInput(['value' => $brand->id])->label(false)?>
 
-    <?= $form->field($model, 'name')->textInput() ?>
+    <?= $form->field($carModelForm, 'name')->textInput() ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+    <?= $form->field($carModelForm, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'imageFile')->fileInput() ?>
+    <?= $form->field($carModelForm, 'imageFile')->fileInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

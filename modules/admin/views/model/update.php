@@ -6,13 +6,13 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model app\models\Model */
 
-$this->title = 'Update Model: ' . $model->name;
+$this->title = 'Update Model: ' . $carModelForm->name;
 $this->params['breadcrumbs'][] = ['label' => 'Панель управления', 'url' => ['/admin']];
 $this->params['breadcrumbs'][] = [
     'label' => $brand->name,
     'url' => Url::toRoute(['brand/view', 'id' =>$brand->id])
 ];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $carModelForm->name, 'url' => ['view', 'id' => $carModelForm->id]];
 $this->params['breadcrumbs'][] = 'Редактировать';
 ?>
 <div class="model-update">
@@ -20,8 +20,8 @@ $this->params['breadcrumbs'][] = 'Редактировать';
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
-        'model' => $model,
-        'brand' => $brand
+        'carModelForm' => $carModelForm,
+        'brand' => $brand,
     ]) ?>
 
 </div>

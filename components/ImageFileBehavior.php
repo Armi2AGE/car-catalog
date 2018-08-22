@@ -40,8 +40,10 @@ class ImageFileBehavior extends Behavior
     {
         $this->path = $this->owner->photo;
 
-        unlink(Yii::$app->basePath . '/web/' . $this->path);
-        
+        if ($this->path) {
+            unlink(Yii::$app->basePath . '/web/' . $this->path);
+        }
+
     }
 
 }

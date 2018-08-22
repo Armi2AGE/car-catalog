@@ -71,13 +71,13 @@ class ModelController extends Controller
         //For hidden input parent Brand Id
         $brand = Brand::findOne($brand_id);
 
-        $model = new CarModelForm();
+        $carModelForm= new CarModelForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->imageFile = UploadedFile::getInstance($model, 'imageFile')) {
-                $model->upload();
+        if ($carModelForm->load(Yii::$app->request->post()) && $carModelForm->validate()) {
+            if ($carModelForm->imageFile = UploadedFile::getInstance($carModelForm, 'imageFile')) {
+                $carModelForm->upload();
             }
-            $model->save();
+            $carModelForm->save();
             return $this->redirect(['/admin/brand/view', 'id' => $brand_id]);
         }
 
@@ -86,7 +86,7 @@ class ModelController extends Controller
         // }
 
         return $this->render('create', [
-            'model' => $model,
+            'carModelForm' => $carModelForm,
             'brand' => $brand
         ]);
     }
@@ -100,15 +100,38 @@ class ModelController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        // $model = $this->findModel($id);
+        //
+        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //     return $this->redirect(['view', 'id' => $model->id]);
+        // }
+        //
+        // return $this->render('update', [
+        //     'model' => $model,
+        //     'brand' => $model->brand
+        // ]);
+        $carModelForm = new CarModelForm();
+        $brand = $this->findModel($id)->brand;
+        $carModelForm->id = $id;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($carModelForm->load(Yii::$app->request->post()) && $carModelForm->validate()) {
+            if ($carModelForm->imageFile = UploadedFile::getInstance($carModelForm, 'imageFile')) {
+                $carModelForm->upload();
+            }
+            $carModelForm->save();
+            return $this->redirect(['/admin/brand/view', 'id' => $brand->id]);
         }
 
+
+        // Да, Я знаю коряво, но спешим...
+        $model = $this->findModel($id);
+
+        $carModelForm->name = $model->name;
+        $carModelForm->description = $model->description;
+
         return $this->render('update', [
-            'model' => $model,
-            'brand' => $model->brand
+            'carModelForm' => $carModelForm,
+            'brand' => $brand
         ]);
     }
 
