@@ -21,8 +21,9 @@ $this->title = 'Автомобили в лизинг';
 
         <h2 id="models-header" style="display: none;">Достпуные модели</h2>
         
-        <div id="models"></div>
     </div>
+
+    <div id="models" class="row"></div>
 
     <div id="equipments"></div>
 </div>
@@ -42,38 +43,34 @@ $script = <<< JS
               brandId: brandId,
             },
             success: function (data) {
-              data.models.forEach((item) => {
-                console.log(item.name);
                 $('#models-header').show();
-                $('#models').append('<button data-type="model" data-model-id="'+ item.id +'" type="button" ' +
-                 'class="btn btn-default">' + item.name + '</button>');
-              });
+                $('#models').append(data);
             }
         });
     });
 
-    // Ajax request for equipments
-    // $('[data-type="model"]').click(function() {
-    $('#models').on('click', 'button[data-type="model"]', function() {
-        var modelId = $(this).attr('data-model-id');
-        $('#equipments').empty();
-        
-        $.ajax({
-            url: '/equipment/index',
-            type: 'POST',
-            data: {
-              modelId: modelId,
-            },
-            success: function (data) {
-              data.models.forEach((item) => {
-                console.log(item.name);
-              //   $('#models-header').show();
-              //   $('#models').append('<button data-type="model" type="button" class="btn btn-default">' + item.name 
-              //   +'</button>');
-              });
-            }
-        });
-    });
+    // // Ajax request for equipments
+    // // $('[data-type="model"]').click(function() {
+    // $('#models').on('click', 'button[data-type="model"]', function() {
+    //     var modelId = $(this).attr('data-model-id');
+    //     $('#equipments').empty();
+    //    
+    //     $.ajax({
+    //         url: '/equipment/index',
+    //         type: 'POST',
+    //         data: {
+    //           modelId: modelId,
+    //         },
+    //         success: function (data) {
+    //           data.models.forEach((item) => {
+    //             console.log(item.name);
+    //           //   $('#models-header').show();
+    //           //   $('#models').append('<button data-type="model" type="button" class="btn btn-default">' + item.name 
+    //           //   +'</button>');
+    //           });
+    //         }
+    //     });
+    // });
 JS;
 
 $this->registerJs($script, $this::POS_READY);

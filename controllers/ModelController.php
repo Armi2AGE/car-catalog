@@ -21,21 +21,31 @@ class ModelController extends Controller
      */
     public function actionIndex()
     {
-        if (Yii::$app->request->isAjax) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
+        // if (Yii::$app->request->isAjax) {
+        //     Yii::$app->response->format = Response::FORMAT_JSON;
+        //
+        //     $request = Yii::$app->request;
+        //
+        //     $id = $request->post('brandId');
+        //
+        //     $models = Model::find()->where(['brand_id' => $id])->all();
+        //
+        //     $response = array(
+        //         'models' => $models,
+        //         'success' => true,
+        //     );
+        //
+        //     return $response;
+        // }
 
+        if (Yii::$app->request->isAjax) {
             $request = Yii::$app->request;
 
             $id = $request->post('brandId');
 
             $models = Model::find()->where(['brand_id' => $id])->all();
 
-            $response = array(
-                'models' => $models,
-                'success' => true,
-            );
-
-            return $response;
+            return $this->renderAjax('index', compact('models'));
         }
     }
 
